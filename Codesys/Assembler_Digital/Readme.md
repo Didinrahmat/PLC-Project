@@ -10,6 +10,25 @@ Sistem merakit produk yang terdiri dari lid dan base. Dua conveyor membawa lid d
 
 [Tonton video demo](https://drive.google.com/file/d/1CyKIppeB3qQCbHB4MFrak4dVzG6ohpfF/view?usp=sharing)
 
+## Scene Factory I/O
+
+![Tampilan depan scene Assembler](assets/tampilan-depan.png)
+*Tampilan depan scene: dua conveyor (lid dan base), lengan pick-and-place, dan panel kontrol.*
+
+### Panel Kontrol
+
+![Panel kontrol](assets/panel-kontrol.png)
+*Panel operator: Emergency Stop, Start, Reset, Stop, Vacuum Release, dan tampilan counter produk.*
+
+### Sensor dan Aktuator
+
+| Sensor | Aktuator |
+|---|---|
+| ![Sensor conveyor](assets/sensor-bawah.png) | ![Aktuator conveyor](assets/aktuator-bawah.png) |
+| Sensor conveyor: lid at place, lid clamped, base at place, base clamped, dan part leaving. | Aktuator conveyor: conveyor lid dan base, clamp lid, clamp base, dan pos. raise (bases). |
+| ![Sensor lengan](assets/sensor-lengan.png) | ![Aktuator lengan](assets/aktuator-lengan.png) |
+| Sensor lengan: moving X, moving Z, dan item detected. | Aktuator lengan: move X, move Z, dan grab. |
+
 ## Tools
 
 | Item | Keterangan |
