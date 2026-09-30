@@ -4,11 +4,7 @@ Simulasi lini perakitan otomatis (lid-on-base) di **Factory I/O** yang dikendali
 
 ## Demo
 
-<!-- ▼▼▼ LETAKKAN VIDEO DEMO DI SINI ▼▼▼ -->
-<!-- Opsi A: drag & drop file .mp4 langsung ke editor README di github.com -->
-<!-- Opsi B (YouTube): -->
-<!-- [![Video Demo](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://youtu.be/VIDEO_ID) -->
-<!-- ▲▲▲ -->
+video yt
 
 Tekan tombol **Vacuum Release** saat demo untuk melepas benda dari gripper.
 
