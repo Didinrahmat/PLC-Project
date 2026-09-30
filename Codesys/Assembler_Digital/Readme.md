@@ -45,14 +45,14 @@ Factory I/O tidak menyediakan komponen check valve. Karena itu, penahanan vakum 
 
 ## Alur Proses (Operasi Normal)
 
-1. **Start**: `Start` mengunci (latch) `System_Running`. `Stop` dan `E_Stop` dipasang tipe NC (TRUE = kondisi normal), sehingga kabel putus juga menghentikan sistem (fail-safe).
-2. **Pengumpanan**: conveyor lid dan conveyor base berjalan selama sistem aktif.
-3. **Positioning**: saat lid / base mencapai posisi ambil (`Sensor_Lid_atP`, `Sensor_Base_atP`), falling-edge trigger men-set latch clamp, dan conveyor terkait dihentikan melalui rangkaian seal-in.
-4. **Pick**: sumbu Z turun dan gripper (`Grab`) aktif saat `Sensor_item` mendeteksi lid (filter TOF 50 ms). Lid ditahan oleh latch `Holding_Item` yang meniru check valve, sampai Vacuum Release (`Stop_Grab`, NC) ditekan atau benda hilang dari sensor.
-5. **Transfer**: sumbu X menggerakkan lid ke atas base; `Arm_X_AtBase` mengonfirmasi posisi.
-6. **Place**: setelah sumbu Z selesai bergerak dan lengan berada di base, `Lid_Placed` menyala selama 500 ms (TOF dipakai sebagai pulse stretcher), lalu clamp base dilepas.
-7. **Return dan release**: `Pos_Raise_B` di-latch, lengan kembali di kedua sumbu (`Arm_Z_Returned`, `Arm_X_Return`), dan conveyor dilepas.
-8. **Counting**: saat produk jadi meninggalkan area (`Part_Leave`), `Part_Cleared` dibangkitkan oleh falling edge dan counter CTU bertambah.
+1. **Start**: Tombol `Start` mengaktifkan dan mengunci (latch) `System_Running`. `Stop` dan `E_Stop` memakai kontak NC (TRUE saat kondisi normal), sehingga kabel putus otomatis menghentikan sistem (fail-safe).
+2. **Conveyor berjalan**: Conveyor lid dan conveyor base berjalan selama sistem aktif.
+3. **Berhenti di posisi ambil**: Saat lid atau base sampai di posisi ambil (`Sensor_Lid_atP`, `Sensor_Base_atP`), falling edge trigger mengaktifkan latch clamp, lalu conveyor yang bersangkutan berhenti melalui rangkaian seal-in.
+4. **Mengambil lid**: Sumbu Z turun dan gripper (`Grab`) aktif saat `Sensor_item` mendeteksi lid (filter TOF 50 ms). Lid ditahan oleh latch `Holding_Item` yang meniru check valve, sampai tombol Vacuum Release (`Stop_Grab`, NC) ditekan atau lid tidak lagi terdeteksi sensor.
+5. **Memindahkan lid**: Sumbu X menggerakkan lid ke atas base. `Arm_X_AtBase` menandakan lengan sudah berada di posisi base.
+6. **Memasang lid**: Setelah sumbu Z selesai bergerak dan lengan berada di atas base, `Lid_Placed` aktif selama 500 ms (TOF dipakai sebagai pulse stretcher), lalu clamp base dilepas.
+7. **Lengan kembali**: `Pos_Raise_B` dikunci (latch), kedua sumbu lengan kembali ke posisi awal (`Arm_Z_Returned`, `Arm_X_Return`), dan conveyor berjalan lagi.
+8. **Menghitung produk**: Saat produk jadi keluar dari area (`Part_Leave`), falling edge menghasilkan `Part_Cleared` dan counter CTU bertambah.
 
 ## Struktur Program
 
