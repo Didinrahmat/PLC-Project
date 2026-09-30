@@ -114,8 +114,42 @@ Factory I/O tidak menyediakan komponen check valve. Karena itu, penahanan vakum 
 
 ## Komunikasi
 
-Program CODESYS terhubung ke Factory I/O melalui protokol **Modbus**. Sinyal input dan output pada tabel I/O Mapping dipetakan ke alamat Modbus antara softwaare PLC CODESYS dan Factory I/O.
+Program CODESYS terhubung ke Factory I/O melalui **Modbus TCP**. CODESYS berperan sebagai slave (Slave ID 1) dan Factory I/O sebagai client yang terhubung ke `127.0.0.1:502`.
 
+Arah data dilihat dari sisi PLC:
+- **Coil** (Factory I/O ke PLC): sensor dan tombol, terbaca di CODESYS sebagai input (`%IX20.x`).
+- **Discrete Input dan Input Register** (PLC ke Factory I/O): aktuator dan counter, ditulis dari output CODESYS (`%QX20.x`, `%QW`).
+
+### Input PLC (Coil)
+
+| Coil | Label di Factory I/O | Variabel |
+|---|---|---|
+| 0 | Moving X | `Moving_x` |
+| 1 | Moving Z | `Moving_Z` |
+| 2 | Item detected | `Sensor_item` |
+| 3 | Lid at place | `Sensor_Lid_atP` |
+| 4 | Lid clamped | `Lim_Lid` |
+| 6 | Base at place | `Sensor_Base_atP` |
+| 9 | Part leaving | `Part_Leave` |
+| 10 | Start | `Start` |
+| 11 | Reset | `Reset` |
+| 12 | Stop | `Stop` (NC) |
+| 13 | Emergency stop | `E_Stop` (NC) |
+| 14 | Vacuum Release | `Stop_Grab` (NC) |
+
+### Output PLC (Discrete Input dan Input Register)
+
+| Alamat | Label di Factory I/O | Variabel |
+|---|---|---|
+| Input 0 | Move X | `Move_x` |
+| Input 1 | Move Z | `Move_Z` |
+| Input 2 | Grab | `Grab` |
+| Input 3 | Lids conveyor | `lid_conv` |
+| Input 4 | Clamp lid | `Clamp_Lid` |
+| Input 6 | Bases conveyor | `base_conv` |
+| Input 7 | Clamp base | `Clamp_Base` |
+| Input 8 | Pos. raise (bases) | `Pos_Raise_B` |
+| Input Reg 0 | Counter | `CV1` |
 
 ## Penulis
 
