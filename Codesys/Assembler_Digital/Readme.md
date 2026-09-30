@@ -91,11 +91,9 @@ Factory I/O tidak menyediakan komponen check valve. Karena itu, penahanan vakum 
 | `Move_x`, `Move_Z`, `Grab` | Output | Sumbu lengan dan gripper (`Holding_Item` = latch internal pengganti check valve) |
 | `Clamp_Lid`, `Clamp_Base`, `Pos_Raise_B` | Output | Clamp dan base blockade |
 
-## Cara Menjalankan
+## Komunikasi
 
-1. Buka scene Assembler di Factory I/O, lalu atur driver ke soft PLC CODESYS (Modbus TCP / OPC sesuai konfigurasi).
-2. Buka file `.project` di CODESYS, download ke soft PLC, lalu jalankan.
-3. Tekan `Start` di Factory I/O.
+Program CODESYS terhubung ke Factory I/O melalui protokol **Modbus**. Sinyal input dan output pada tabel I/O Mapping dipetakan ke alamat Modbus antara softwaare PLC CODESYS dan Factory I/O.
 
 
 ## Penulis
