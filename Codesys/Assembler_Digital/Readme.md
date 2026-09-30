@@ -98,20 +98,6 @@ Factory I/O tidak menyediakan komponen check valve. Karena itu, penahanan vakum 
 - **Filter timer**: TOF pada gripper dan konfirmasi lid terpasang untuk mencegah sinyal berkedip.
 - **Rangkaian seal-in** untuk kondisi stop conveyor, dilepas oleh event kembalinya lengan.
 
-## I/O Mapping
-
-| Sinyal | Tipe | Keterangan |
-|---|---|---|
-| `Start`, `Stop`, `E_Stop`, `Reset` | Input | Kontrol operator (`Stop` dan `E_Stop` bertipe NC) |
-| `Stop_Grab` | Input | Push button Vacuum Release (NC, TRUE = tidak ditekan), setara pelepas check valve |
-| `Sensor_Lid_atP`, `Sensor_Base_atP` | Input | Lid / base berada di posisi ambil |
-| `Sensor_item` | Input | Benda terdeteksi oleh gripper |
-| `Moving_x`, `Moving_Z` | Input | Umpan balik gerak sumbu |
-| `Lim_Lid`, `Part_Leave` | Input | Limit sensor / sensor part keluar |
-| `lid_conv`, `base_conv` | Output | Conveyor |
-| `Move_x`, `Move_Z`, `Grab` | Output | Sumbu lengan dan gripper (`Holding_Item` = latch internal pengganti check valve) |
-| `Clamp_Lid`, `Clamp_Base`, `Pos_Raise_B` | Output | Clamp dan base blockade |
-
 ## Komunikasi
 
 Program CODESYS terhubung ke Factory I/O melalui **Modbus TCP**. CODESYS berperan sebagai slave (Slave ID 1) dan Factory I/O sebagai client yang terhubung ke `127.0.0.1:502`.
