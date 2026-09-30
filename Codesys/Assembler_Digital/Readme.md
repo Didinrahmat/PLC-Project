@@ -13,11 +13,13 @@ Sistem merakit produk yang terdiri dari lid dan base. Dua conveyor membawa lid d
 ## Scene Factory I/O
 
 ![Tampilan depan scene Assembler](assets/tampilan-depan.png)
+
 *Tampilan depan scene: dua conveyor (lid dan base), lengan pick-and-place, dan panel kontrol.*
 
 ### Panel Kontrol
 
 ![Panel kontrol](assets/panel-kontrol.png)
+
 *Panel operator: Emergency Stop, Start, Reset, Stop, Vacuum Release, dan tampilan counter produk.*
 
 ### Sensor dan Aktuator
