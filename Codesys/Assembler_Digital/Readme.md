@@ -4,7 +4,8 @@ Simulasi lini perakitan otomatis (lid-on-base) di **Factory I/O** yang dikendali
 
 ## Demo
 
-[![Video Demo](assets/demo-thumbnail.png)]([https://drive.google.com/file/d/FILE_ID/view?usp=sharing](https://drive.google.com/file/d/1CyKIppeB3qQCbHB4MFrak4dVzG6ohpfF/view?usp=sharing))
+[![Video Demo](<img width="1716" height="910" alt="image" src="https://github.com/user-attachments/assets/89691762-a306-4b72-9a17-f86286f0ac78" />
+)]([https://drive.google.com/file/d/FILE_ID/view?usp=sharing](https://drive.google.com/file/d/1CyKIppeB3qQCbHB4MFrak4dVzG6ohpfF/view?usp=sharing))
 
 ▶️ [Tonton video demo di Google Drive]([https://drive.google.com/file/d/FILE_ID/view?usp=sharing](https://drive.google.com/file/d/1CyKIppeB3qQCbHB4MFrak4dVzG6ohpfF/view?usp=sharing))
 
