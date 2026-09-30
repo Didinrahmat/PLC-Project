@@ -54,8 +54,10 @@ Ketentuan tombol Reset:
 - Hanya dapat digunakan ketika sistem tidak berjalan dan gripper tidak sedang memegang lid.
 - Urutan yang disarankan: tekan E-Stop, lepas (reset) E-Stop, baru tekan Reset.
 
-Kondisi E-Stop Saat Gripper Memegang Lid:
+**Kondisi E-Stop Saat Gripper Memegang Lid:**
+
 Jika E-Stop ditekan ketika gripper sedang memegang lid, gripper tetap menahan lid agar tidak jatuh. Lid baru dilepas setelah tombol Vacuum Release ditekan.
+
 Perilaku ini meniru *vacuum check valve* pada sistem pneumatik nyata, yang menjaga vakum tetap tertahan saat suplai berhenti sampai dilepas secara manual.
 
 ### Catatan Simulasi
