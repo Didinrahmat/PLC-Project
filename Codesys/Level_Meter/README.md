@@ -8,7 +8,7 @@ Sistem mengisi tangki sampai level yang ditentukan lewat potentiometer. Fill rat
 
 ## Demo
 
-[Tonton video demo]((https://drive.google.com/file/d/1uPpK1wRxSMH1t41eR7hDkerCoe2OVkoA/view?usp=sharing))
+[Tonton video demo](https://drive.google.com/file/d/1uPpK1wRxSMH1t41eR7hDkerCoe2OVkoA/view?usp=sharing)
 
 ## Factory I/O Scene
 
