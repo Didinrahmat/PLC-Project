@@ -1,127 +1,167 @@
-Factory I/O Sorting by Height – PLC Ladder Logic (CODESYS)
-Simulasi sistem penyortir barang berdasarkan tinggi di Factory I/O yang dikendalikan program ladder logic CODESYS (IEC 61131-3).
+# Factory I/O Sorting by Height – PLC Ladder Logic (CODESYS)
 
-Objective: Sort items by height onto two side conveyors (high items to the left, low items to the right) and count the sorted items.
+Simulasi penyortir box berdasarkan tinggi di **Factory I/O** (scene Sorting by Height) yang dikendalikan program **ladder logic CODESYS** (IEC 61131-3) dengan desain modular berbasis function block.
 
-Sistem menerima barang dari conveyor masuk, memuatnya ke posisi sensor tinggi, lalu mengklasifikasikannya sebagai tinggi atau rendah. Barang tinggi dipindahkan ke conveyor kiri, barang rendah ke conveyor kanan. Barang yang keluar di ujung masing-masing conveyor dihitung dan totalnya ditampilkan pada display.
+> **Objective:** Sort boxes by height onto two side conveyors (tall boxes to the left, short boxes to the right) and count the sorted boxes.
 
-Demo
-[TODO: tambahkan link video demo]
+Sistem menerima box dari conveyor masuk, memuatnya ke posisi sensor tinggi, lalu mengklasifikasikannya sebagai box tinggi atau box pendek. Box tinggi dipindahkan ke conveyor kiri, box pendek ke conveyor kanan. Box yang keluar di ujung masing-masing conveyor dihitung, dan totalnya ditampilkan pada display.
 
-Scene Factory I/O
-[TODO: tambahkan screenshot scene]
+## Demo
 
-Tampilan scene: conveyor masuk, conveyor pemuat, dua transfer (kiri dan kanan), dua side conveyor, dan panel kontrol.
+[TODO: Tonton video demo](link-video)
 
-Panel Kontrol
-[TODO: tambahkan screenshot panel]
+## Factory I/O Scene
 
-Panel operator: Emergency Stop, Start, Stop, Reset, dan display jumlah barang tersortir.
+![Tampilan scene Sorting by Height](assets/tampilan-scene.png)
 
-Sensor dan Aktuator
-Sensor:
-- Pallet_Sensor: deteksi barang di posisi pemuatan
-- Loaded: konfirmasi barang sudah termuat
-- High_Sensor: deteksi barang tinggi
-- Low_Sensor: deteksi barang rendah
-- At_Entry_Left, At_Entry_Right: barang sampai di pintu masuk side conveyor kiri/kanan
-- At_left_Exit, At_right_Exit: barang keluar dari side conveyor kiri/kanan
+*Tampilan scene: conveyor masuk, conveyor pemuat, dua transfer (kiri dan kanan), dua side conveyor, dan panel kontrol.*
 
-Aktuator:
-- Conveyor_Entry: conveyor masuk
-- Load_Conveyor: conveyor pemuat
-- Transfer_Left, Transfer_Right: transfer barang ke kiri/kanan
-- Conveyor_Left, Conveyor_Right: side conveyor kiri/kanan
-- Display_Dig: display jumlah barang
+### Control Panel
 
-Tools
-Item                  | Keterangan
-Simulasi              | Factory I/O (scene Sorting by Height (Basic))
-PLC / IDE             | CODESYS (soft PLC)
-Bahasa pemrograman    | Ladder Diagram (LD)
-Blok standar          | CTU, R_TRIG, F_TRIG, ADD, TO_WORD
+![Control panel](assets/panel-kontrol.png)
 
-Fungsi Push Button
-Tombol  | Fungsi
-Start   | Menjalankan sistem.
-Stop    | Menghentikan sistem.
-E-Stop  | Menghentikan sistem secara paksa dan dikunci (latch). Sistem tidak dapat berjalan sampai latch dilepas dengan Reset.
-Reset   | Melepas latch E-Stop dan mereset counter (lihat ketentuan di bawah).
+*Panel operator: Start, Stop, Reset, Emergency Stop, dan display jumlah box tersortir.*
 
-Ketentuan tombol Reset:
-Reset memiliki dua fungsi yang dipisahkan agar jumlah barang tidak hilang tanpa disengaja:
-1. Setelah E-Stop: tekan Reset sekali untuk melepas latch E-Stop. Counter tetap utuh. Tekan Reset sekali lagi (setelah tombol dilepas) jika ingin mengosongkan counter.
-2. Setelah Stop: ketika sistem tidak berjalan, tekan Reset untuk mengosongkan counter.
+### Sensor dan Actuator
+
+| Sensor | Fungsi |
+|---|---|
+| `Pallet_Sensor` | Deteksi box di posisi pemuatan |
+| `Loaded` | Konfirmasi box sudah termuat |
+| `High_Sensor` | Deteksi box tinggi |
+| `Low_Sensor` | Deteksi box pendek |
+| `At_Entry_Left`, `At_Entry_Right` | Box sampai di pintu masuk side conveyor kiri/kanan |
+| `At_left_Exit`, `At_right_Exit` | Box keluar dari side conveyor kiri/kanan |
+
+| Actuator | Fungsi |
+|---|---|
+| `Conveyor_Entry` | Conveyor masuk |
+| `Load_Conveyor` | Conveyor pemuat |
+| `Transfer_Left`, `Transfer_Right` | Transfer box ke kiri/kanan |
+| `Conveyor_Left`, `Conveyor_Right` | Side conveyor kiri/kanan |
+| `Display_Dig` | Display jumlah box tersortir |
+
+## Tools
+
+| Item | Keterangan |
+|---|---|
+| Simulasi | Factory I/O (scene Sorting by Height) |
+| PLC / IDE | CODESYS (soft PLC) |
+| Bahasa pemrograman | Ladder Diagram (LD) |
+| Blok standar | CTU, R_TRIG, ADD, TO_WORD, kontak edge (P/N) |
+
+## Push Button Functions
+
+| Tombol | Fungsi |
+|---|---|
+| **Start** | Menjalankan sistem. `System_Running` di-latch aktif (seal-in). |
+| **Stop** | Menghentikan sistem. |
+| **E-Stop** | Menghentikan sistem secara paksa dan di-latch. Sistem tidak dapat berjalan sampai latch dilepas dengan Reset. |
+| **Reset** | Melepas latch E-Stop dan mereset counter (lihat ketentuan di bawah). |
+
+**Ketentuan tombol Reset:**
+
+Reset punya dua fungsi yang sengaja dipisahkan agar jumlah box tidak hilang tanpa disengaja:
+
+1. **Setelah E-Stop:** tekan Reset sekali untuk melepas latch E-Stop. Counter tetap utuh. Lepas tombol, lalu tekan Reset sekali lagi jika ingin mengosongkan counter.
+2. **Setelah Stop:** saat sistem tidak berjalan, tekan Reset untuk mengosongkan counter.
+
 Counter tidak dapat direset saat sistem sedang berjalan.
 
-Alur Proses (Operasi Normal)
-1. Start: Tombol Start mengaktifkan dan mengunci (latch) System_Running.
-2. Barang masuk: Conveyor masuk membawa barang ke posisi pemuatan. Saat Pallet_Sensor mendeteksi barang, conveyor masuk berhenti dan conveyor pemuat memuat barang.
-3. Klasifikasi tinggi: Sensor tinggi (High_Sensor) menentukan jenis barang. Barang tinggi dikunci pada latch High_Item.
-4. Transfer: Instance Height_Sorter untuk barang tinggi memindahkan barang ke kiri. Instance untuk barang rendah (aktif saat High_Item tidak aktif) memindahkan barang ke kanan.
-5. Side conveyor: Setelah barang sampai di pintu masuk side conveyor, transfer berhenti dan side conveyor membawa barang ke ujung conveyor.
-6. Menghitung barang: Saat barang melewati sensor di ujung conveyor kiri atau kanan, rising edge menaikkan counter masing-masing sisi. Jumlah kedua counter dijumlahkan dan dikirim ke display.
+## Process Flow (Normal Operation)
 
-Struktur Program
-Program dibagi menjadi satu program utama (PLC_PRG) dan tiga function block yang dipakai ulang.
+1. **Start**: Tombol `Start` mengaktifkan dan me-latch `System_Running`.
+2. **Box masuk**: Conveyor masuk membawa box ke posisi pemuatan. Saat `Pallet_Sensor` mendeteksi box, conveyor masuk berhenti dan conveyor pemuat memuat box.
+3. **Klasifikasi tinggi**: `High_Sensor` dan `Low_Sensor` terpasang pada dua ketinggian berbeda. Box tinggi terdeteksi oleh `High_Sensor`, sehingga dikunci pada latch `High_Item`. Box pendek tidak mengaktifkan `High_Sensor`, sehingga `High_Item` tetap tidak aktif dan box ditangani oleh jalur box pendek.
+4. **Transfer**: Instance `Height_Sorter` untuk box tinggi memindahkan box ke kiri. Instance untuk box pendek (hanya aktif saat `High_Item` tidak aktif) memindahkan box ke kanan.
+5. **Side conveyor**: Setelah box sampai di pintu masuk side conveyor, transfer berhenti dan side conveyor membawa box ke ujung conveyor.
+6. **Menghitung box**: Saat box melewati sensor di ujung conveyor kiri atau kanan, rising edge menaikkan counter masing-masing sisi. Kedua counter dijumlahkan, dikonversi ke WORD, lalu dikirim ke display.
+7. **E-Stop**: Saat E-Stop ditekan, sinyal dikonfirmasi lalu di-latch menjadi `E_StopLatched`. Semua blok berhenti sampai latch dilepas dengan Reset.
 
-PLC_PRG
-Rung  | Fungsi
-1–3   | E-Stop: konfirmasi sinyal dan latch
-4     | Reset melepas latch E-Stop
-5     | Start / Stop sistem (System_Running)
-6     | Izin conveyor masuk
-7     | Output conveyor masuk
-8     | Barang terdeteksi: stop conveyor masuk
-9     | Latch proses pemuatan
-10    | Output conveyor pemuat
-11    | Latch barang tinggi (High_Item), harus dievaluasi sebelum rung 14
-12    | Height_Sorter HIGH: transfer kiri
-13    | Side conveyor kiri
-14    | Height_Sorter LOW: transfer kanan (bergantung pada rung 11)
-15    | Side conveyor kanan
-16    | Counter dan display
+## Program Structure
 
-Function Block
-FB               | Fungsi                                                                  | Dipakai
-Height_Sorter    | Mendeteksi barang, meminta transfer, dan menghentikan transfer          | 2x (HIGH dan LOW)
-Side_Conveyor    | Menjalankan side conveyor dari pintu masuk sampai ujung                 | 2x (kiri dan kanan)
-Sorting_Counter  | Menghitung barang kiri dan kanan, menjumlahkan, dan konversi ke display | 1x
+Program terdiri dari satu program utama (`PLC_PRG`) dan tiga function block yang dipakai ulang.
 
-Teknik yang Dipakai
-- Rangkaian E-Stop dengan latch: sinyal E-Stop dikonfirmasi lalu dikunci menjadi satu sinyal E_StopLatched yang dipakai semua blok. Latch hanya dilepas oleh Reset saat tombol E-Stop sudah dilepas.
-- Desain modular: tiap fungsi dibuat sebagai function block dan dipakai ulang (Height_Sorter dan Side_Conveyor masing-masing dua instance), sehingga sisi kiri dan kanan memakai logika yang sama.
-- Reset counter dua tahap: tekanan Reset yang melepas latch E-Stop ditangkap dan diabaikan oleh counter, sehingga reset counter baru terjadi pada tekanan berikutnya. Ini mencegah jumlah barang hilang tanpa disengaja.
-- Penghitungan berbasis edge: counter dinaikkan oleh rising edge sensor ujung conveyor, sehingga satu barang dihitung satu kali.
-- Latching bertahap: kondisi seperti barang terdeteksi dan izin transfer disimpan pada latch dan dilepas oleh event berikutnya (misalnya barang sampai di pintu masuk side conveyor).
+### PLC_PRG
 
-Catatan Desain
-- Urutan rung penting pada dua tempat: High_Item (rung 11) harus dievaluasi sebelum Height_Sorter LOW (rung 14), dan Stop_Transfer pada Height_Sorter dipakai oleh latch di scan berikutnya.
-- Fungsi Reset ganda (melepas latch E-Stop dan mereset counter) disengaja dan dipisahkan oleh logika dua tahap di Sorting_Counter.
+| Rung | Fungsi |
+|---|---|
+| 1–3 | E-Stop: konfirmasi sinyal dan latch |
+| 4 | Reset melepas latch E-Stop |
+| 5 | Start / Stop sistem (`System_Running`) |
+| 6 | Izin conveyor masuk |
+| 7 | Output conveyor masuk |
+| 8 | Box terdeteksi: stop conveyor masuk |
+| 9 | Latch proses pemuatan |
+| 10 | Output conveyor pemuat |
+| 11 | Latch box tinggi (`High_Item`), harus dievaluasi sebelum rung 14 |
+| 12 | `Height_Sorter` HIGH: transfer kiri |
+| 13 | Side conveyor kiri |
+| 14 | `Height_Sorter` LOW: transfer kanan (bergantung pada rung 11) |
+| 15 | Side conveyor kanan |
+| 16 | Counter dan display |
 
-Komunikasi
-Program CODESYS terhubung ke Factory I/O melalui Modbus TCP. CODESYS berperan sebagai slave dan Factory I/O sebagai client yang terhubung ke 127.0.0.1:502.
-[TODO: sesuaikan Slave ID dan alamat dengan konfigurasi di projectmu]
+### Function Block
+
+| FB | Fungsi | Dipakai |
+|---|---|---|
+| `Height_Sorter` | Mendeteksi box, meminta transfer, dan menghentikan transfer | 2x (HIGH dan LOW) |
+| `Side_Conveyor` | Menjalankan side conveyor dari pintu masuk sampai ujung | 2x (kiri dan kanan) |
+| `Sorting_Counter` | Menghitung box kiri dan kanan, menjumlahkan, dan konversi ke display | 1x |
+
+## Techniques Used
+
+- **E-Stop latch**: sinyal E-Stop dikonfirmasi lalu dikunci menjadi satu sinyal `E_StopLatched` yang dipakai semua blok. Latch hanya dilepas oleh Reset saat tombol E-Stop sudah dilepas.
+- **Desain modular**: tiap fungsi dibuat sebagai function block dan dipakai ulang (`Height_Sorter` dan `Side_Conveyor` masing-masing dua instance), sehingga sisi kiri dan kanan memakai logika yang sama.
+- **Reset counter dua tahap**: tekanan Reset yang melepas latch E-Stop ditangkap dan diabaikan oleh counter, sehingga reset counter baru terjadi pada tekanan berikutnya. Ini mencegah jumlah box hilang tanpa disengaja.
+- **Penghitungan berbasis edge**: counter dinaikkan oleh rising edge sensor ujung conveyor, sehingga satu box dihitung satu kali.
+- **Latching bertahap**: kondisi seperti box terdeteksi dan izin transfer disimpan pada latch, lalu dilepas oleh event berikutnya (misalnya box sampai di pintu masuk side conveyor).
+
+## Design Notes
+
+- Urutan rung penting pada dua tempat: `High_Item` (rung 11) harus dievaluasi sebelum `Height_Sorter` LOW (rung 14), dan `Stop_Transfer` pada `Height_Sorter` dipakai oleh latch pada scan berikutnya.
+- Fungsi Reset ganda (melepas latch E-Stop dan mereset counter) disengaja dan dipisahkan oleh logika dua tahap di `Sorting_Counter`.
+
+## Communication
+
+Program CODESYS terhubung ke Factory I/O melalui **Modbus TCP**. CODESYS berperan sebagai slave dan Factory I/O sebagai client yang terhubung ke `127.0.0.1:502`.
+
+[TODO: sesuaikan Slave ID dan alamat dengan konfigurasi projectmu]
 
 Arah data dilihat dari sisi PLC:
-- Coil (Factory I/O ke PLC): sensor dan tombol, terbaca di CODESYS sebagai input.
-- Discrete Input dan Input Register (PLC ke Factory I/O): aktuator dan counter, ditulis dari output CODESYS.
 
-Input PLC (Coil)
-Coil  | Label di Factory I/O | Variabel
-[TODO: isi dari konfigurasi Modbus]
+- **Coil** (Factory I/O ke PLC): sensor dan tombol, terbaca di CODESYS sebagai input.
+- **Discrete Input dan Input Register** (PLC ke Factory I/O): aktuator dan counter, ditulis dari output CODESYS.
 
-Output PLC (Discrete Input dan Input Register)
-Alamat | Label di Factory I/O | Variabel
-[TODO: isi dari konfigurasi Modbus]
+### PLC Inputs
 
-Pengujian
+| Coil | Label di Factory I/O | Variabel |
+|---|---|---|
+| [TODO] | [TODO] | [TODO] |
+
+### PLC Outputs
+
+| Alamat | Label di Factory I/O | Variabel |
+|---|---|---|
+| [TODO] | [TODO] | [TODO] |
+
+## Testing
+
 Sudah diuji di Factory I/O:
-- Fungsi semua tombol (Start, Stop, E-Stop, Reset)
-- Proses sortir normal (barang tinggi ke kiri, barang rendah ke kanan)
-- Reset counter: setelah Stop, dan dua tahap setelah E-Stop
-[TODO: tambahkan hasil tes tepi bila sudah dicoba: E-Stop saat barang di tengah transfer, dua barang berdekatan, Stop lalu Start]
 
-Penulis
-Izzuddin Alqassam, Teknik Elektro, Universitas Hasanuddin
+- Fungsi semua tombol (Start, Stop, E-Stop, Reset)
+- Proses sortir normal (box tinggi ke kiri, box pendek ke kanan)
+- Reset counter: setelah Stop, dan dua tahap setelah E-Stop
+
+[TODO: tambahkan hasil tes tepi bila sudah dicoba: E-Stop saat box di tengah transfer, dua box berdekatan, Stop lalu Start]
+
+## Future Improvements
+
+- `Side_Conveyor` menerima `System_Running` dari program utama agar hanya ada satu sumber status sistem.
+- Tambahan HMI untuk menampilkan status dan counter.
+- Integrasi dengan TIA Portal.
+
+## Author
+
+**Izzuddin Alqassam**, Teknik Elektro, Universitas Hasanuddin
 Fokus: sistem kontrol, PLC, otomasi industri
