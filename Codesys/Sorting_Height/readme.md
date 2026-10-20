@@ -8,7 +8,7 @@ Sistem menerima box dari conveyor masuk, memuatnya ke posisi sensor tinggi, lalu
 
 ## Demo
 
-[TODO: Tonton video demo](link-video)
+[Tonton video demo](https://drive.google.com/file/d/1oGs2WN6Qq6f9_9jcHBV8DKw2_Wz3svIB/view?usp=sharing)
 
 ## Scene Factory I/O
 
