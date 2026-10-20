@@ -26,10 +26,8 @@ Sistem menerima box dari conveyor masuk, memuatnya ke posisi sensor tinggi, lalu
 
 | Sensor | Aktuator |
 |---|---|
-| ![Sensor conveyor](assets/sensor-conveyor.png) | ![Aktuator conveyor 1](assets/aktuator-conveyor1.png)<br>![Aktuator conveyor 2](assets/aktuator-conveyor2.png)|
-| Sensor conveyor: pallet sensor, loaded, at entry (kiri dan kanan), dan at exit (kiri dan kanan). | Aktuator conveyor: conveyor entry, load conveyor, conveyor kiri, dan conveyor kanan. |
-| ![Sensor tinggi](assets/sensor-tinggi.png) | ![Aktuator transfer](assets/aktuator-transfer.png) |
-| Sensor tinggi: high sensor (box tinggi) dan low sensor (box pendek). | Aktuator transfer: transfer left dan transfer right. |
+| ![Sensor 1](assets/sensor-1.png)<br>![Sensor 2](assets/sensor-2.png)<br>![Sensor 3](assets/sensor-3.png) | ![Aktuator 1](assets/aktuator-1.png)<br>![Aktuator 2](assets/aktuator-2.png) |
+| Sensor: high sensor, low sensor, pallet sensor, loaded, at entry (kiri dan kanan), dan at exit (kiri dan kanan). | Aktuator: conveyor entry, load conveyor, conveyor kiri, conveyor kanan, transfer left, dan transfer right. |
 
 ## Tools
 
