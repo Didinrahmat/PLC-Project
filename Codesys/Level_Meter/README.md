@@ -128,8 +128,6 @@ Alurnya: **WORD (dari Factory I/O) → REAL → PID → REAL → WORD (ke Factor
 
 ## Future Improvements
 
-- Interlock agar Fill dan Discharge tidak aktif bersamaan.
-- `High_Level_Alarm` ikut menghentikan Fill.
 - Integrasi dengan TIA Portal dan penambahan HMI/SCADA.
 
 ## Author
